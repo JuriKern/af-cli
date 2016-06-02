@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Arrays;
 
 public class Command {
-  private final List<String> allowedKeys = Arrays.asList("--file");
+  private final List<String> allowedKeys = Arrays.asList(
+    "--file", "--crypt", "--decrypt"
+  );
 
   private String key;
   private String value;
@@ -30,6 +32,6 @@ public class Command {
   }
 
   public void execute() {
-    
+
   }
 }

@@ -11,17 +11,24 @@ import java.util.HashMap;
 
 public class App {
   private static List<Command> commands = new ArrayList<Command>();
+  private static List<String> permissions = new ArrayList<String>();
 
   public static void main(String[] args) {
     System.out.println("[-> af-cli started");
 
     for (String arg: args) {
-      String[] temp = arg.split("=");
-      Command command = new Command(temp[0], temp[1]);
-      if (command.isValid()) {
-        commands.add(command);
+      if (arg.contains("=")) {
+        String[] temp = arg.split("=");
+        Command command = new Command(temp[0], temp[1]);
+        if (command.isValid()) {
+          commands.add(command);
+        }
+      } else {
+        permissions.add(arg);
       }
     }
+
+    System.out.format("[-> Authenticate %s=%s\n", permissions.get(0), permissions.get(1));
 
     for (Command c: commands) {
       System.out.format("[-> execute command %s=%s\n", c.getKey(), c.getValue());
