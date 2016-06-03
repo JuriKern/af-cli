@@ -1,19 +1,21 @@
 package org.activefile;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import org.activefile.config.Client;
 import org.activefile.util.Command;
+import org.activefile.resources.Keypair;
+
+import java.util.List;
+import java.util.ArrayList;
 
 import java.util.Map;
 import java.util.HashMap;
 
 public class App {
   private static List<Command> commands = new ArrayList<Command>();
-  private static List<String> permissions = new ArrayList<String>();
 
   public static void main(String[] args) {
+    Keypair keypair = Keypair.getInstance();
+
     System.out.println("[-> af-cli started");
 
     for (String arg: args) {
@@ -24,15 +26,21 @@ public class App {
           commands.add(command);
         }
       } else {
-        permissions.add(arg);
+        keypair.setArg(arg);
       }
     }
 
-    System.out.format("[-> Authenticate %s=%s\n", permissions.get(0), permissions.get(1));
+    try {
+      keypair.authenticate();
+    } catch (Exception e) {
+      System.out.format("[--> %s\n", e.getMessage());
+    }
 
-    for (Command c: commands) {
-      System.out.format("[-> execute command %s=%s\n", c.getKey(), c.getValue());
-      c.execute();
+    if (keypair.isAuthenticated()) {
+      for (Command c: commands) {
+        System.out.format("[-> execute command %s=%s\n", c.getKey(), c.getValue());
+        c.execute();
+      }
     }
 
     // Client client = Client.getInstance();
