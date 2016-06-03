@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Keypair {
   private static Keypair instance;
 
-  private static List<String> args = new ArrayList<String>();
-  private static String token;
+  private List<String> args = new ArrayList<String>();
+  private String token;
   private boolean authenticated;
 
   public static synchronized Keypair getInstance() {
