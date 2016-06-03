@@ -37,9 +37,13 @@ public class App {
     }
 
     if (keypair.isAuthenticated()) {
-      for (Command c: commands) {
-        System.out.format("[-> execute command %s=%s\n", c.getKey(), c.getValue());
-        c.execute();
+      try {
+        for (Command c: commands) {
+          System.out.format("[-> execute command %s=%s\n", c.getKey(), c.getValue());
+          c.execute();
+        }
+      } catch (Exception e) {
+        System.out.format("[--> %s\n", e.getMessage());
       }
     }
 

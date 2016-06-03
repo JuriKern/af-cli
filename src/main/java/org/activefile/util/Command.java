@@ -31,7 +31,7 @@ public class Command {
     return valid;
   }
 
-  public void execute() {
-
+  public void execute() throws Exception{
+    throw new Exception("doesn't implemented");
   }
 }
